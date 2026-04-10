@@ -100,10 +100,13 @@ export default function PurchaseHistory({ accounts, transactions }: Props) {
     new Set(gastos.map((t) => t.date.slice(0, 7)))
   )
     .sort((a, b) => b.localeCompare(a))
-    .map((key) => ({
-      key,
-      label: new Date(key + "-01").toLocaleDateString("es-MX", { month: "long", year: "numeric" }),
-    }));
+    .map((key) => {
+      const [y, m] = key.split("-").map(Number);
+      return {
+        key,
+        label: new Date(y, m - 1, 1).toLocaleDateString("es-MX", { month: "long", year: "numeric" }),
+      };
+    });
 
   const allIds = new Set<string>(accounts.map((a) => a.account_id));
   const [selectedIds, setSelectedIds] = useState<Set<string>>(new Set(allIds));
