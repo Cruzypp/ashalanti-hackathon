@@ -3,6 +3,15 @@
 :root {
   --background: #ffffff;
   --foreground: #171717;
+
+  /* Brand */
+  --color-primary: #0EA5E9;   /* Sky 500  — textos e iconos principales */
+  --color-action:  #06B6D4;   /* Cyan 500 — botones primarios / CTAs     */
+
+  /* Estados de alerta (Fricciones) */
+  --color-critical: #EF4444;  /* Red 500   — crítico / alto impacto */
+  --color-alert:    #F59E0B;  /* Amber 500 — alerta media           */
+  --color-info:     #0EA5E9;  /* Sky 500   — informativo / positivo */
 }
 
 @theme inline {
@@ -10,6 +19,13 @@
   --color-foreground: var(--foreground);
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
+
+  /* Expone las variables como utilidades Tailwind (bg-primary, text-action, etc.) */
+  --color-primary:  var(--color-primary);
+  --color-action:   var(--color-action);
+  --color-critical: var(--color-critical);
+  --color-alert:    var(--color-alert);
+  --color-info:     var(--color-info);
 }
 
 @media (prefers-color-scheme: dark) {
