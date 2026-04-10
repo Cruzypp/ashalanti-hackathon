@@ -59,6 +59,11 @@ export interface MonthlyReportViewModel {
   frictionSpendLabel: string
   savingsLabel: string
   healthScore: number
+  healthDescription: string
+  healthHighlights: Array<{
+    label: string
+    value: string
+  }>
   topFricciones: FrictionPriority[]
   categoryBreakdown: CategoryBreakdownItem[]
   notableMovements: NotableMovement[]
@@ -211,6 +216,9 @@ export function getMonthlyReport(): MonthlyReportViewModel {
   }))
 
   const topTypes = frictionImpact.map((item) => item.type)
+  const recoverableShare = Math.round(
+    (userData.friction_summary.potential_savings / Math.max(userData.friction_summary.total_monthly_loss, 1)) * 100,
+  )
 
   return {
     periodLabel: 'Marzo 2025',
@@ -247,6 +255,21 @@ export function getMonthlyReport(): MonthlyReportViewModel {
     frictionSpendLabel: formatMoney(frictionExpenses),
     savingsLabel: formatMoney(userData.friction_summary.potential_savings),
     healthScore: userData.friction_summary.health_score,
+    healthDescription: `La metrica se calcula con el numero de fricciones activas, el impacto economico mensual que concentran y el porcentaje de ahorro recuperable frente a la perdida total detectada.`,
+    healthHighlights: [
+      {
+        label: 'Fricciones activas',
+        value: `${userData.friction_summary.frictions.length}`,
+      },
+      {
+        label: 'Perdida detectada',
+        value: formatMoney(userData.friction_summary.total_monthly_loss),
+      },
+      {
+        label: 'Ahorro recuperable',
+        value: `${recoverableShare}%`,
+      },
+    ],
     topFricciones,
     categoryBreakdown,
     notableMovements,

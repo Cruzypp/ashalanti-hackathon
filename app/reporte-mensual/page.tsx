@@ -19,44 +19,63 @@ export default function ReporteMensualPage() {
   return (
     <main className="min-h-screen bg-[#eef4fb] px-6 py-8 lg:px-10 lg:py-10">
       <div className="mx-auto max-w-7xl">
-        <div className="flex flex-wrap items-center justify-between gap-4">
-          <div>
-            <Link
-              href="/fricciones"
-              className="inline-flex items-center gap-2 rounded-full border border-sky-100 bg-white px-4 py-2 text-sm font-semibold text-sky-700 shadow-sm"
-            >
-              <ArrowLeft size={16} />
-              Volver a fricciones
-            </Link>
-            <p className="mt-5 text-sm font-semibold uppercase tracking-[0.22em] text-sky-600">
-              {report.periodLabel}
-            </p>
-            <h1 className="mt-2 text-4xl font-black tracking-[-0.05em] text-slate-900 lg:text-6xl">
-              {report.headline}
-            </h1>
-            <p className="mt-3 max-w-3xl text-base leading-8 text-slate-600 lg:text-lg">
-              {report.userName} · {report.city}
-            </p>
-          </div>
-
-          <div className="rounded-[2rem] bg-white px-6 py-5 shadow-[0_18px_45px_rgba(15,23,42,0.08)]">
-            <p className="text-xs font-semibold uppercase tracking-[0.18em] text-slate-400">
-              Salud del mes
-            </p>
-            <div className="mt-2 flex items-end gap-3">
-              <span className="text-5xl font-black tracking-tight text-slate-900">
-                {report.healthScore}
-              </span>
-              <span className="mb-2 text-lg font-semibold text-slate-400">/100</span>
-            </div>
-            <div className="mt-4 h-3 w-52 rounded-full bg-slate-100">
-              <div
-                className="h-3 rounded-full bg-gradient-to-r from-[#f97316] to-[#fb923c]"
-                style={{ width: `${report.healthScore}%` }}
-              />
-            </div>
-          </div>
+        <div>
+          <Link
+            href="/fricciones"
+            className="inline-flex items-center gap-2 rounded-full border border-sky-100 bg-white px-4 py-2 text-sm font-semibold text-sky-700 shadow-sm"
+          >
+            <ArrowLeft size={16} />
+            Volver a fricciones
+          </Link>
+          <p className="mt-5 text-sm font-semibold uppercase tracking-[0.22em] text-sky-600">
+            {report.periodLabel}
+          </p>
+          <h1 className="mt-2 text-4xl font-black tracking-[-0.05em] text-slate-900 lg:text-6xl">
+            {report.headline}
+          </h1>
+          <p className="mt-3 max-w-3xl text-base leading-8 text-slate-600 lg:text-lg">
+            {report.userName} · {report.city}
+          </p>
         </div>
+
+        <section className="mt-6 rounded-[2rem] bg-white px-6 py-6 shadow-[0_18px_45px_rgba(15,23,42,0.08)] lg:px-8 lg:py-7">
+          <div className="grid gap-6 xl:grid-cols-[240px_minmax(0,1fr)] xl:items-center">
+            <div>
+              <p className="text-xs font-semibold uppercase tracking-[0.18em] text-slate-400">
+                Salud del mes
+              </p>
+              <div className="mt-3 flex items-end gap-3">
+                <span className="text-6xl font-black tracking-tight text-slate-900">
+                  {report.healthScore}
+                </span>
+                <span className="mb-2 text-xl font-semibold text-slate-400">/100</span>
+              </div>
+            </div>
+
+            <div>
+              <p className="text-sm leading-7 text-slate-600 lg:text-base">
+                {report.healthDescription}
+              </p>
+              <div className="mt-4 h-3 overflow-hidden rounded-full bg-slate-100">
+                <div
+                  className="h-3 rounded-full bg-gradient-to-r from-[#f97316] to-[#fb923c]"
+                  style={{ width: `${report.healthScore}%` }}
+                />
+              </div>
+              <div className="mt-4 flex flex-wrap gap-3">
+                {report.healthHighlights.map((item) => (
+                  <div
+                    key={item.label}
+                    className="rounded-full border border-slate-200 bg-slate-50 px-4 py-2 text-sm"
+                  >
+                    <span className="font-semibold text-slate-800">{item.label}:</span>{' '}
+                    <span className="text-slate-600">{item.value}</span>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+        </section>
 
         <section className="mt-8 rounded-[2.25rem] bg-gradient-to-br from-[#123a63] via-[#0f4f84] to-[#2c9edb] p-8 text-white shadow-[0_26px_60px_rgba(18,58,99,0.28)] lg:p-10">
           <div className="grid gap-8 xl:grid-cols-[minmax(0,1fr)_320px]">
