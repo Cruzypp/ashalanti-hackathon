@@ -12,7 +12,7 @@ export default function PurchasesDashboard({
   return (
     <div className="min-h-screen bg-[#f5f7fb]">
       <header className="border-b border-slate-200 bg-white px-6 py-5 lg:px-10">
-        <div className="flex flex-col gap-4 lg:flex-row lg:items-center lg:justify-between">
+        <div>
           <div>
             <p className="text-sm font-semibold uppercase tracking-[0.24em] text-sky-500">
               {data.header.eyebrow}
@@ -21,11 +21,6 @@ export default function PurchasesDashboard({
               {data.header.title}
             </h1>
             <p className="mt-1 text-sm text-slate-500">{data.header.subtitle}</p>
-          </div>
-
-          <div className="rounded-[1.75rem] bg-slate-50 px-5 py-4 shadow-sm">
-            <p className="text-sm font-semibold text-slate-700">{data.header.monthLabel}</p>
-            <p className="mt-1 text-sm text-slate-500">{data.header.context}</p>
           </div>
         </div>
       </header>

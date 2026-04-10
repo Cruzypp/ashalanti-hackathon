@@ -60,8 +60,6 @@ export interface PurchasesViewModel {
     eyebrow: string;
     title: string;
     subtitle: string;
-    monthLabel: string;
-    context: string;
   };
   overview: PurchasesOverview;
   alert: PurchasesAlert;
@@ -271,8 +269,6 @@ export function getPurchasesViewModel(): PurchasesViewModel {
       eyebrow: "Compras",
       title: "Suscripciones y cargos recurrentes",
       subtitle: `${rawData.user.name} • ${rawData.user.city}`,
-      monthLabel: "Marzo 2025",
-      context: `${recurringTransactions.length} cargos activos detectados`,
     },
     overview: {
       monthlySpendLabel: formatMoney(recurringTotal),
