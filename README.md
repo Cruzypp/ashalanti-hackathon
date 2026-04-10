@@ -28,8 +28,11 @@ La app sigue una arquitectura por modulos dentro de `app/`:
 - `app/fricciones/`: listado y detalle visual de fricciones detectadas.
 - `app/compras/`: panel de suscripciones/cargos recurrentes.
 - `app/ejecutivo/`: resumen ejecutivo con health score y top fricciones.
-- `app/data/user.json`: fuente mock principal de datos (usuario, cuentas, transacciones, fricciones).
+- `app/ejecutivos/`: alias de `/ejecutivo` — re-exporta la misma pagina como ruta alternativa.
+- `app/data/user.json`: fuente mock principal de datos (usuario, cuentas, transacciones, fricciones). Transacciones distribuidas entre enero y marzo 2025.
 - `app/lib/mapFrictions.ts`: transforma datos crudos a objetos de dominio para UI.
+- `app/lib/data.ts`: re-exporta cuentas y transacciones tipadas desde el JSON mock.
+- `app/utils/healthScore.ts`: calcula el health score financiero (0-100) en 5 dimensiones.
 - `app/components-cruz/` y `app/components-cisne/`: componentes reutilizables por modulo.
 - `app/utils/`: utilidades de negocio/exportacion (por ejemplo PDF).
 
@@ -83,6 +86,7 @@ npm run lint     # linting
 
 - ruta inicial: `/` redirige a `/dashboard`
 - compatibilidad: `/transacciones` redirige a `/compras`
+- `/ejecutivos` es alias de `/ejecutivo` (misma vista, dos rutas validas)
 
 ## Uso de IA (transparencia)
 
@@ -104,6 +108,13 @@ Limites y criterio del equipo:
 - las decisiones funcionales y de producto se tomaron por el equipo
 - la data mock, flujos y alcance del prototipo fueron definidos por el equipo
 - todo output generado con IA fue revisado, editado y validado manualmente antes de integrarlo
+
+## Correcciones recientes
+
+- **Bug export PDF**: el dropdown de exportacion mostraba el mes equivocado (ej. "febrero" en lugar de "marzo") por un problema de timezone al parsear fechas ISO con `new Date("YYYY-MM-DD")` (se interpreta como UTC). Corregido usando `new Date(year, month - 1, 1)` (tiempo local).
+- **Datos mock multi-mes**: las transacciones en `user.json` se redistribuyeron entre enero (28), febrero (21) y marzo (16) para simular un historial real de 3 meses.
+- **Bug import data.ts**: `app/lib/data.ts` tenia un string de import sin cerrar que bloqueaba el build de TypeScript. Corregido.
+- **Ruta /ejecutivos**: agrega alias funcional que re-exporta la pagina de `/ejecutivo`.
 
 ## Estado actual
 
