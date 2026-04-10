@@ -62,13 +62,6 @@ export default function PurchasesDashboard({
               </p>
               <p className="mt-2 text-2xl font-semibold">{data.alert.savingsLabel}</p>
             </div>
-
-            <button
-              type="button"
-              className="mt-6 rounded-full bg-white px-6 py-3 text-sm font-semibold text-[#6b5200] shadow-sm transition-transform hover:-translate-y-0.5"
-            >
-              {data.alert.actionLabel}
-            </button>
           </aside>
         </div>
 

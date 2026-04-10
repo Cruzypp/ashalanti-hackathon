@@ -8,17 +8,14 @@ const toneStyles = {
   danger: {
     avatar: "bg-red-50 text-red-600",
     badge: "border-red-100 bg-red-50 text-red-600",
-    action: "bg-red-600 text-white hover:bg-red-700",
   },
   warning: {
     avatar: "bg-amber-50 text-amber-700",
     badge: "border-amber-100 bg-amber-50 text-amber-700",
-    action: "bg-amber-100 text-amber-900 hover:bg-amber-200",
   },
   success: {
     avatar: "bg-emerald-50 text-emerald-700",
     badge: "border-emerald-100 bg-emerald-50 text-emerald-700",
-    action: "bg-slate-100 text-slate-700 hover:bg-slate-200",
   },
 } as const;
 
@@ -61,12 +58,6 @@ export default function TransactionCard({ transaction }: TransactionCardProps) {
           <p className="text-3xl font-semibold tracking-tight text-slate-900">
             {transaction.amountLabel}
           </p>
-          <button
-            type="button"
-            className={`rounded-full px-5 py-2.5 text-sm font-semibold transition-colors ${styles.action}`}
-          >
-            {transaction.actionLabel}
-          </button>
         </div>
       </div>
     </article>

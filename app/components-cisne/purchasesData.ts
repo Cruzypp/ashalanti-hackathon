@@ -9,7 +9,6 @@ export interface PurchaseTransactionCard {
   subcategory: string;
   amountLabel: string;
   statusLabel: string;
-  actionLabel: string;
   accountLabel: string;
   dateLabel: string;
   detailLabel: string;
@@ -49,7 +48,6 @@ interface PurchasesAlert {
   description: string;
   services: string[];
   savingsLabel: string;
-  actionLabel: string;
 }
 
 interface FilterChip {
@@ -138,20 +136,17 @@ function getRecurringTransactions() {
       const frictionKey = transaction.friction ?? "sin_friccion";
 
       let statusLabel = "Sin friccion detectada";
-      let actionLabel = "Mantener";
       let detailLabel = "Cargo automatico activo y sin alerta actual.";
       let tone: Tone = "success";
 
       if (frictionKey === "suscripcion_zombie") {
         statusLabel = "Suscripcion zombie";
-        actionLabel = "Cancelar";
         detailLabel = transaction.days_inactive
           ? `Sin uso en ${transaction.days_inactive} dias.`
           : "Hay poca o nula actividad reciente para este cargo.";
         tone = "danger";
       } else if (frictionKey === "pago_duplicado") {
         statusLabel = "Pago duplicado";
-        actionLabel = "Consolidar";
         detailLabel =
           transaction.note ?? "Se detecta traslape con otro servicio similar.";
         tone = "warning";
@@ -166,7 +161,6 @@ function getRecurringTransactions() {
         amount,
         amountLabel: formatMoney(amount),
         statusLabel,
-        actionLabel,
         accountLabel: `${transaction.bank} • ${account?.product ?? "Cuenta"} • ****${transaction.card_last4}`,
         dateLabel: `Cargo automatico • ${formatDate(transaction.date)}`,
         detailLabel,
@@ -278,7 +272,7 @@ export function getPurchasesViewModel(): PurchasesViewModel {
       title: "Suscripciones y cargos recurrentes",
       subtitle: `${rawData.user.name} • ${rawData.user.city}`,
       monthLabel: "Marzo 2025",
-      context: `${recurringTransactions.length} cargos activos detectados en el JSON`,
+      context: `${recurringTransactions.length} cargos activos detectados`,
     },
     overview: {
       monthlySpendLabel: formatMoney(recurringTotal),
@@ -306,7 +300,6 @@ export function getPurchasesViewModel(): PurchasesViewModel {
       description: `${zombieSummary?.count ?? 0} suscripciones zombie y ${duplicateSummary?.count ?? 0} pagos duplicados estan consumiendo el presupuesto mensual.`,
       services,
       savingsLabel: formatMoney(riskyTotal),
-      actionLabel: "Priorizar revisiones",
     },
     filters,
     transactions: recurringTransactions.map((transaction) => ({
@@ -316,7 +309,6 @@ export function getPurchasesViewModel(): PurchasesViewModel {
       subcategory: transaction.subcategory,
       amountLabel: transaction.amountLabel,
       statusLabel: transaction.statusLabel,
-      actionLabel: transaction.actionLabel,
       accountLabel: transaction.accountLabel,
       dateLabel: transaction.dateLabel,
       detailLabel: transaction.detailLabel,
