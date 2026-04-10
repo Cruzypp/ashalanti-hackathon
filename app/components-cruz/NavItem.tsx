@@ -7,16 +7,17 @@ interface NavItemProps {
   icon: LucideIcon;
   isActive: boolean;
   collapsed: boolean;
+  showLabels: boolean;
+  onCollapsedClick?: () => void;
 }
 
-export default function NavItem({ href, label, icon: Icon, isActive, collapsed }: NavItemProps) {
+export default function NavItem({ href, label, icon: Icon, isActive, collapsed, showLabels, onCollapsedClick }: NavItemProps) {
   return (
     <Link
       href={href}
       title={collapsed ? label : undefined}
-      className={`flex items-center py-2.5 rounded-full text-sm font-medium transition-colors ${
-        collapsed ? "justify-center px-2" : "gap-3 px-4"
-      } ${
+      onClick={collapsed && onCollapsedClick ? (e) => { e.preventDefault(); onCollapsedClick(); } : undefined}
+      className={`flex items-center gap-3 py-2.5 px-4 rounded-xl text-sm font-medium transition-colors ${
         isActive
           ? "bg-primary/10 text-primary"
           : "text-gray-500 hover:bg-gray-100 hover:text-gray-700"
@@ -26,7 +27,9 @@ export default function NavItem({ href, label, icon: Icon, isActive, collapsed }
         size={20}
         className={`shrink-0 ${isActive ? "text-primary" : "text-gray-400"}`}
       />
-      {!collapsed && label}
+      <span className={`whitespace-nowrap transition-opacity duration-200 ${showLabels ? "opacity-100" : "opacity-0"}`}>
+        {label}
+      </span>
     </Link>
   );
 }

@@ -6,7 +6,7 @@
 
   /* Brand */
   --color-primary: #0EA5E9;   /* Sky 500  — textos e iconos principales */
-  --color-action:  #06B6D4;   /* Cyan 500 — botones primarios / CTAs     */
+  --color-action:  #0585c0;   /* Cyan 500 — botones primarios / CTAs     */
 
   /* Estados de alerta (Fricciones) */
   --color-critical: #EF4444;  /* Red 500   — crítico / alto impacto */
