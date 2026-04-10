@@ -34,7 +34,7 @@ export function mapFrictions(data: typeof import('../data/user.json')): Friction
           count: f.count,
           description: (f.services ?? []).join(', ') + '…',
           meta: [`${f.count} servicios`, `+${historical_comparison.subscriptions.pct_change_vs_q_prev} vs trimestre`],
-          detectedAt: 'Sin usar 46–86 días',
+          detectedAt: 'Detectado este mes',
         }
       case 'riesgo_liquidez':
         return {

@@ -10,7 +10,7 @@ export default function DashboardPage() {
 
   const currency = new Intl.NumberFormat('es-MX', {
     style: 'currency',
-    currency: 'USD',
+    currency: 'MXN',
     signDisplay: 'always',
   })
 
