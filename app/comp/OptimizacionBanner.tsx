@@ -1,4 +1,4 @@
-'use client'
+import Link from 'next/link'
 
 interface Props {
   recoveredAmount: number
@@ -19,11 +19,12 @@ export function OptimizacionBanner({ recoveredAmount, recoveryPercent, progressP
         <p className="text-sm text-sky-800 leading-relaxed mb-5">
           Has recuperado un total de <span className="font-semibold text-sky-900">{formatted}</span> este mes resolviendo fricciones. ¡Sigue así!
         </p>
-        <button
-          className="bg-sky-900 text-sky-100 text-sm font-semibold px-5 py-2.5 rounded-full hover:bg-sky-800 transition-colors"
+        <Link
+          href="/reporte-mensual"
+          className="inline-flex bg-sky-900 text-sky-100 text-sm font-semibold px-5 py-2.5 rounded-full hover:bg-sky-800 transition-colors"
         >
           Generar Reporte Mensual
-        </button>
+        </Link>
       </div>
 
       <div className="bg-white/40 rounded-xl p-4 min-w-[175px] flex flex-col gap-3">
