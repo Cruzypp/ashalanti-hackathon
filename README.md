@@ -1,36 +1,110 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Friction Map - Prototipo Hackathon
 
-## Getting Started
+Aplicacion web construida con Next.js (App Router) para detectar fricciones financieras a partir de transacciones simuladas, visualizar impacto y presentar oportunidades de ahorro.
 
-First, run the development server:
+## Objetivo del proyecto
+
+El prototipo busca mostrar, de forma clara y accionable:
+
+- fricciones financieras (suscripciones zombie, pagos duplicados, gasto hormiga, etc.)
+- impacto mensual estimado y ahorro potencial
+- vistas por rol/seccion: dashboard general, fricciones, compras recurrentes y resumen ejecutivo
+
+## Stack tecnico
+
+- Next.js 16 (App Router)
+- React 19
+- TypeScript
+- Tailwind CSS 4
+- lucide-react (iconografia)
+
+## Arquitectura (resumen)
+
+La app sigue una arquitectura por modulos dentro de `app/`:
+
+- `app/layout.tsx`: layout global con sidebar fija en toda la app.
+- `app/page.tsx`: redireccion al dashboard.
+- `app/dashboard/`: vista principal con KPIs y componentes de resumen.
+- `app/fricciones/`: listado y detalle visual de fricciones detectadas.
+- `app/compras/`: panel de suscripciones/cargos recurrentes.
+- `app/ejecutivo/`: resumen ejecutivo con health score y top fricciones.
+- `app/data/user.json`: fuente mock principal de datos (usuario, cuentas, transacciones, fricciones).
+- `app/lib/mapFrictions.ts`: transforma datos crudos a objetos de dominio para UI.
+- `app/components-cruz/` y `app/components-cisne/`: componentes reutilizables por modulo.
+- `app/utils/`: utilidades de negocio/exportacion (por ejemplo PDF).
+
+## Flujo de datos
+
+1. Se carga data mock desde `app/data/user.json`.
+2. Se transforma con funciones de mapeo (ej. `mapFrictions`, view-models de compras).
+3. Cada pagina consume ese view model para renderizar tarjetas, tablas y graficas.
+
+## Como correr en local
+
+### 1) Requisitos
+
+- Node.js 20+ recomendado
+- npm 10+ recomendado
+
+### 2) Instalar dependencias
+
+```bash
+npm install
+```
+
+### 3) Dependencias para exportacion PDF
+
+Si al compilar aparece el error `Can't resolve 'jspdf'`, instala:
+
+```bash
+npm install jspdf jspdf-autotable
+```
+
+### 4) Levantar el proyecto
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Abrir en navegador:
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+`http://localhost:3000`
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## Scripts utiles
 
-## Learn More
+```bash
+npm run dev      # desarrollo
+npm run build    # build de produccion
+npm run start    # correr build en modo produccion
+npm run lint     # linting
+```
 
-To learn more about Next.js, take a look at the following resources:
+## Consideraciones de rutas
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+- ruta inicial: `/` redirige a `/dashboard`
+- compatibilidad: `/transacciones` redirige a `/compras`
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## Uso de IA (transparencia)
 
-## Deploy on Vercel
+Para este proyecto, la IA se utilizo como apoyo de productividad, especialmente por la restriccion de tiempo del hackathon.
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+Uso principal:
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+- acelerar implementacion de componentes y estructura base
+- apoyo en refactors y correccion de errores de integracion
+- soporte para ajustes visuales rapidos y pulido de UX
+
+Uso secundario:
+
+- apoyo en ideacion de mockups
+- consulta puntual en investigacion tecnica
+
+Limites y criterio del equipo:
+
+- las decisiones funcionales y de producto se tomaron por el equipo
+- la data mock, flujos y alcance del prototipo fueron definidos por el equipo
+- todo output generado con IA fue revisado, editado y validado manualmente antes de integrarlo
+
+## Estado actual
+
+El repositorio representa un prototipo funcional para demo local, enfocado en validacion de concepto y narrativa de producto.
