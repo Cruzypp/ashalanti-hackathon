@@ -9,7 +9,7 @@
   --color-action:  #0585c0;   /* Cyan 500 — botones primarios / CTAs     */
 
   /* Estados de alerta (Fricciones) */
-  --color-critical: #EF4444;  /* Red 500   — crítico / alto impacto */
+  --color-critical: #ff2929;  /* Red 500   — crítico / alto impacto */
   --color-alert:    #F59E0B;  /* Amber 500 — alerta media           */
   --color-info:     #0EA5E9;  /* Sky 500   — informativo / positivo */
 }
