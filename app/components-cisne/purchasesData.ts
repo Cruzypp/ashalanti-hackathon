@@ -1,4 +1,4 @@
-import rawData from "@/app/data.json";
+import rawData from "@/app/data/user.json";
 
 type Tone = "danger" | "warning" | "success";
 

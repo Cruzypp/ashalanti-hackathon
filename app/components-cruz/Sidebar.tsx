@@ -19,7 +19,7 @@ import NavAction from "./NavAction";
 const navItems = [
   { label: "Dashboard", href: "/dashboard", icon: LayoutDashboard },
   { label: "Fricciones", href: "/fricciones", icon: AlertTriangle },
-  { label: "Transacciones", href: "/transacciones", icon: ShoppingCart },
+  { label: "Compras", href: "/compras", icon: ShoppingCart },
   { label: "Cuentas", href: "/cuentas", icon: Wallet },
   { label: "Ejecutivos", href: "/ejecutivos", icon: BarChart2 },
 ];
