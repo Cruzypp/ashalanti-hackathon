@@ -1,45 +1,51 @@
-import { FileText, Database, Headphones, Package } from "lucide-react";
+import {
+  AlertTriangle,
+  CreditCard,
+  Receipt,
+  ShoppingBag,
+  ShoppingCart,
+  Utensils,
+} from "lucide-react";
 import type { LucideIcon } from "lucide-react";
 import Link from "next/link";
+import userData from "../../data/user.json";
+import { mapFrictions } from "../../lib/mapFrictions";
 
 interface Friccion {
   id: string;
   title: string;
   subtitle: string;
   icon: LucideIcon;
-  loss: string;
+  loss: number;
 }
 
-const fricciones: Friccion[] = [
-  {
-    id: "1",
-    title: "Aprobación de viáticos",
-    subtitle: "Demora media: 4.2 días",
-    icon: FileText,
-    loss: "-$92.00",
-  },
-  {
-    id: "2",
-    title: "Duplicidad de datos CRM",
-    subtitle: "Impacto: 12 usuarios",
-    icon: Database,
-    loss: "-$45.50",
-  },
-  {
-    id: "3",
-    title: "Feedback tardío soporte",
-    subtitle: "Alta prioridad",
-    icon: Headphones,
-    loss: "-$31.00",
-  },
-  {
-    id: "4",
-    title: "Stockout preventivo",
-    subtitle: "Riesgo operativo",
-    icon: Package,
-    loss: "-$16.00",
-  },
-];
+const iconByType: Record<string, LucideIcon> = {
+  compra_impulsiva: ShoppingCart,
+  suscripcion_zombie: CreditCard,
+  riesgo_liquidez: AlertTriangle,
+  comision_evitable: Receipt,
+  pago_duplicado: CreditCard,
+  inflacion_personal: Utensils,
+  gasto_hormiga: ShoppingBag,
+  compra_hora_inusual: AlertTriangle,
+};
+
+const currency = new Intl.NumberFormat("es-MX", {
+  style: "currency",
+  currency: "USD",
+  signDisplay: "always",
+});
+
+const fricciones: Friccion[] = mapFrictions(userData)
+  .sort((a, b) => b.monthlyImpact - a.monthlyImpact)
+  .slice(0, 4)
+  .map((f) => ({
+    id: f.type,
+    title: f.label,
+    subtitle: f.meta?.[0] ?? f.detectedAt,
+    icon: iconByType[f.type] ?? AlertTriangle,
+    loss: -Math.abs(f.monthlyImpact),
+  }));
 
 export default function TopFricciones() {
   return (
@@ -68,7 +74,7 @@ export default function TopFricciones() {
                 <p className="text-sm font-bold text-gray-800 leading-tight">{f.title}</p>
                 <p className="text-xs text-gray-400 mt-0.5">{f.subtitle}</p>
               </div>
-              <span className="text-sm font-bold text-critical shrink-0">{f.loss}</span>
+              <span className="text-sm font-bold text-critical shrink-0">{currency.format(f.loss)}</span>
             </div>
           );
         })}
