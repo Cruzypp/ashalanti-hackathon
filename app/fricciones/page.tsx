@@ -34,6 +34,7 @@ export default function FriccionPage() {
             description={f.description}
             meta={f.meta}
             detectedAt={f.detectedAt}
+            detailHref={`/fricciones/${f.type}`}
           />
         ))}
       </div>
