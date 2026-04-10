@@ -1,6 +1,6 @@
 import Link from 'next/link'
 import { notFound } from 'next/navigation'
-import { BadgeDollarSign, Bot, CircleHelp, Sparkles } from 'lucide-react'
+import { BadgeDollarSign, CircleHelp, Sparkles } from 'lucide-react'
 import { getFrictionDetail } from '../../lib/getFrictionDetail'
 
 interface FrictionDetailPageProps {
@@ -54,10 +54,6 @@ export default async function FrictionDetailPage({ params }: FrictionDetailPageP
               <div className="inline-flex items-center gap-2 rounded-full bg-white px-4 py-3 text-sm font-semibold text-slate-700 shadow-sm">
                 <BadgeDollarSign size={16} className="text-sky-500" />
                 Ahorro estimado: {detail.savingsLabel}
-              </div>
-              <div className="inline-flex items-center gap-2 rounded-full bg-white px-4 py-3 text-sm font-semibold text-slate-700 shadow-sm">
-                <Bot size={16} className="text-sky-500" />
-                Confianza de IA: {detail.confidenceLabel}
               </div>
             </div>
           </section>

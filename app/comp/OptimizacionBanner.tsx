@@ -9,7 +9,7 @@ interface Props {
 const SPARK_HEIGHTS = [28, 45, 35, 60, 50, 80, 100]
 
 export function OptimizacionBanner({ recoveredAmount, recoveryPercent, progressPercent }: Props) {
-  const formatted = new Intl.NumberFormat('es-MX', { style: 'currency', currency: 'USD' }).format(recoveredAmount)
+  const formatted = new Intl.NumberFormat('es-MX', { style: 'currency', currency: 'MXN' }).format(recoveredAmount)
   const progress = Math.min(100, Math.max(0, progressPercent))
 
   return (

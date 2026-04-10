@@ -21,7 +21,7 @@ const config: Record<Severity, { label: string; badge: string; amount: string; b
 
 export function FrictionCard({ severity, amount, title, description, meta, detectedAt, detailHref }: FrictionCardProps) {
   const c = config[severity]
-  const formatted = new Intl.NumberFormat('es-MX', { style: 'currency', currency: 'USD', signDisplay: 'always' }).format(-Math.abs(amount))
+  const formatted = new Intl.NumberFormat('es-MX', { style: 'currency', currency: 'MXN', signDisplay: 'always' }).format(-Math.abs(amount))
 
   return (
     <div className={`bg-white rounded-2xl p-5 border border-gray-100 border-l-4 ${c.border}`}>

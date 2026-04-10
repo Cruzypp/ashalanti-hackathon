@@ -139,9 +139,7 @@ function getRecurringTransactions() {
 
       if (frictionKey === "suscripcion_zombie") {
         statusLabel = "Suscripcion zombie";
-        detailLabel = transaction.days_inactive
-          ? `Sin uso en ${transaction.days_inactive} dias.`
-          : "Hay poca o nula actividad reciente para este cargo.";
+        detailLabel = "Cargo recurrente con bajo valor percibido frente a su costo mensual.";
         tone = "danger";
       } else if (frictionKey === "pago_duplicado") {
         statusLabel = "Pago duplicado";
