@@ -195,7 +195,7 @@ export default function PurchaseHistory() {
 
       {/* Footer */}
       <div className="mt-4 pt-3 border-t border-gray-100 text-center">
-        <Link href="/transacciones" className="text-sm font-medium text-primary hover:underline">
+        <Link href="/compras" className="text-sm font-medium text-primary hover:underline">
           Ver historial completo
         </Link>
       </div>
