@@ -8,8 +8,33 @@ import {
   Utensils, Package, BookOpen, Heart, Cpu, Receipt,
 } from "lucide-react";
 import type { LucideIcon } from "lucide-react";
-import rawData from "@/app/data/user.json";
 import CardFilterDropdown from "./CardFilterDropdown";
+import ExportDropdown from "./ExportDropdown";
+import type { MonthOption } from "./ExportDropdown";
+import { exportPurchasesPDF } from "@/app/utils/exportPDF";
+
+/* types */
+
+export interface Account {
+  account_id: string;
+  bank: string;
+  type: string;
+  card_last4: string;
+  product: string;
+}
+
+export interface Transaction {
+  txn_id: string;
+  account_id: string;
+  bank: string;
+  card_last4: string;
+  date: string;
+  merchant: string;
+  category: string;
+  subcategory?: string;
+  amount: number;
+  type: string;
+}
 
 /* helpers */
 
@@ -54,36 +79,51 @@ function formatAmount(amount: number): string {
   return `$${Math.abs(amount).toLocaleString("en-US", { minimumFractionDigits: 2 })}`;
 }
 
-/* data */
-
-const accountMap = Object.fromEntries(
-  rawData.accounts.map((a) => [a.account_id, a])
-);
-
-const allAccounts = rawData.accounts;
-
-const gastos = rawData.transactions
-  .filter((t) => t.type === "gasto")
-  .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
-
 /* component */
 
-export default function PurchaseHistory() {
-  const allIds = new Set(allAccounts.map((a) => a.account_id));
+interface Props {
+  accounts: Account[];
+  transactions: Transaction[];
+}
+
+export default function PurchaseHistory({ accounts, transactions }: Props) {
+  const gastos = transactions
+    .filter((t) => t.type === "gasto")
+    .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
+
+  const accountMap: Record<string, Account> = Object.fromEntries(
+    accounts.map((a) => [a.account_id, a])
+  );
+
+  // Meses disponibles derivados de los datos
+  const months: MonthOption[] = Array.from(
+    new Set(gastos.map((t) => t.date.slice(0, 7)))
+  )
+    .sort((a, b) => b.localeCompare(a))
+    .map((key) => ({
+      key,
+      label: new Date(key + "-01").toLocaleDateString("es-MX", { month: "long", year: "numeric" }),
+    }));
+
+  const allIds = new Set<string>(accounts.map((a) => a.account_id));
   const [selectedIds, setSelectedIds] = useState<Set<string>>(new Set(allIds));
   const [filterOpen, setFilterOpen] = useState(false);
+  const [exportOpen, setExportOpen] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
+  const exportRef = useRef<HTMLDivElement>(null);
 
-  // Close dropdown on outside click
   useEffect(() => {
     function handleClick(e: MouseEvent) {
       if (dropdownRef.current && !dropdownRef.current.contains(e.target as Node)) {
         setFilterOpen(false);
       }
+      if (exportRef.current && !exportRef.current.contains(e.target as Node)) {
+        setExportOpen(false);
+      }
     }
-    if (filterOpen) document.addEventListener("mousedown", handleClick);
+    if (filterOpen || exportOpen) document.addEventListener("mousedown", handleClick);
     return () => document.removeEventListener("mousedown", handleClick);
-  }, [filterOpen]);
+  }, [filterOpen, exportOpen]);
 
   function toggleCard(id: string) {
     setSelectedIds((prev) => {
@@ -95,12 +135,12 @@ export default function PurchaseHistory() {
 
   function toggleAll() {
     setSelectedIds((prev) =>
-      prev.size === allAccounts.length ? new Set() : new Set(allIds)
+      prev.size === accounts.length ? new Set<string>() : new Set<string>(allIds)
     );
   }
 
   const filtered = gastos.filter((t) => selectedIds.has(t.account_id)).slice(0, 6);
-  const activeFilters = selectedIds.size < allAccounts.length ? allAccounts.length - selectedIds.size : 0;
+  const activeFilters = selectedIds.size < accounts.length ? accounts.length - selectedIds.size : 0;
 
   return (
     <div className="bg-white rounded-2xl shadow-sm border border-gray-100 p-6 flex flex-col">
@@ -108,14 +148,29 @@ export default function PurchaseHistory() {
       <div className="flex items-center justify-between mb-5">
         <h2 className="text-lg font-bold text-gray-900">Historial de Compras</h2>
         <div className="flex gap-2 items-center">
-          <button className="px-4 py-1.5 rounded-full text-sm font-medium bg-gray-100 text-gray-600 hover:bg-gray-200 transition-colors">
-            Exportar
-          </button>
-          {/* Filter button + dropdown */}
+          <div className="relative" ref={exportRef}>
+            <button
+              onClick={() => setExportOpen((o) => !o)}
+              className={`px-4 py-1.5 rounded-xl text-sm font-medium transition-colors ${
+                exportOpen ? "bg-gray-200 text-gray-700" : "bg-gray-100 text-gray-600 hover:bg-gray-200"
+              }`}
+            >
+              Exportar
+            </button>
+            {exportOpen && (
+              <ExportDropdown
+                months={months}
+                onExport={(monthKey) => {
+                  setExportOpen(false);
+                  exportPurchasesPDF(gastos, monthKey);
+                }}
+              />
+            )}
+          </div>
           <div className="relative" ref={dropdownRef}>
             <button
               onClick={() => setFilterOpen((o) => !o)}
-              className={`relative px-4 py-1.5 rounded-full text-sm font-medium transition-colors ${
+              className={`relative px-4 py-1.5 rounded-xl text-sm font-medium transition-colors ${
                 filterOpen || activeFilters > 0
                   ? "bg-primary text-white"
                   : "bg-primary/10 text-primary hover:bg-primary/20"
@@ -131,7 +186,7 @@ export default function PurchaseHistory() {
 
             {filterOpen && (
               <CardFilterDropdown
-                accounts={allAccounts}
+                accounts={accounts}
                 selectedIds={selectedIds}
                 onToggle={toggleCard}
                 onToggleAll={toggleAll}
@@ -153,15 +208,11 @@ export default function PurchaseHistory() {
 
             return (
               <div key={t.txn_id}>
-                <div className="flex items-start gap-3 py-4 px-2">
-                  {/* Merchant icon */}
-                  <div className="w-9 h-9 rounded-full bg-gray-100 flex items-center justify-center shrink-0 mt-0.5">
+                <div className="flex items-center gap-3 py-4 px-2">
+                  <div className="w-12 h-12 rounded-xl bg-gray-100 flex items-center justify-center shrink-0">
                     <Icon size={16} className="text-gray-500" />
                   </div>
-
-                  {/* Content */}
                   <div className="flex-1 min-w-0 flex flex-col gap-2">
-                    {/* Row 1: merchant ←→ date */}
                     <div className="flex items-start justify-between gap-4">
                       <div>
                         <p className="text-sm font-semibold text-gray-800 leading-tight">{t.merchant}</p>
@@ -169,8 +220,6 @@ export default function PurchaseHistory() {
                       </div>
                       <p className="text-xs text-gray-400 shrink-0">{formatDate(t.date)}</p>
                     </div>
-
-                    {/* Row 2: card ←→ amount */}
                     <div className="flex items-center justify-between gap-4">
                       <div className="flex items-center gap-2">
                         <div className="w-11 h-7 rounded-md bg-gray-50 border border-gray-100 flex items-center justify-center overflow-hidden p-1 shrink-0">
@@ -183,7 +232,6 @@ export default function PurchaseHistory() {
                     </div>
                   </div>
                 </div>
-
                 {i < filtered.length - 1 && (
                   <div className="mx-2 h-px bg-linear-to-r from-transparent via-gray-200 to-transparent" />
                 )}

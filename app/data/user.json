@@ -924,7 +924,23 @@
       "days_inactive": 46,
       "recurrent": true,
       "note": "Gym sin uso en 46 días — membresía activa"
-    }
+    },
+
+    { "txn_id": "txn_051", "account_id": "acc_banorte_001", "bank": "Banorte", "card_last4": "9012", "date": "2025-03-01", "time": "10:30", "merchant": "HEB Monterrey Centro", "category": "Supermercado", "subcategory": "Despensa", "amount": -1850.00, "type": "gasto", "channel": "TPV presencial", "friction": null },
+    { "txn_id": "txn_052", "account_id": "acc_banorte_001", "bank": "Banorte", "card_last4": "9012", "date": "2025-03-05", "time": "09:00", "merchant": "CFE — Servicio Eléctrico", "category": "Servicios", "subcategory": "Electricidad", "amount": -1140.00, "type": "gasto", "channel": "SPEI", "friction": null },
+    { "txn_id": "txn_053", "account_id": "acc_bbva_001", "bank": "BBVA", "card_last4": "4821", "date": "2025-03-10", "time": "12:00", "merchant": "Farmacia del Ahorro", "category": "Salud", "subcategory": "Farmacia", "amount": -380.00, "type": "gasto", "channel": "TPV presencial", "friction": null },
+    { "txn_id": "txn_054", "account_id": "acc_banorte_001", "bank": "Banorte", "card_last4": "9012", "date": "2025-03-06", "time": "17:30", "merchant": "PEMEX Gasolinería Las Puentes", "category": "Transporte", "subcategory": "Gasolina", "amount": -720.00, "type": "gasto", "channel": "TPV presencial", "friction": null },
+    { "txn_id": "txn_055", "account_id": "acc_bbva_001", "bank": "BBVA", "card_last4": "4821", "date": "2025-03-08", "time": "20:00", "merchant": "La Boca del Río Mariscos", "category": "Restaurante", "subcategory": "Cena familiar", "amount": -890.00, "type": "gasto", "channel": "TPV presencial", "friction": null },
+    { "txn_id": "txn_056", "account_id": "acc_banorte_001", "bank": "Banorte", "card_last4": "9012", "date": "2025-03-01", "time": "08:00", "merchant": "Pago Renta — Depto Cumbres", "category": "Hogar", "subcategory": "Renta", "amount": -9500.00, "type": "gasto", "channel": "SPEI", "friction": null },
+    { "txn_id": "txn_057", "account_id": "acc_bbva_001", "bank": "BBVA", "card_last4": "4821", "date": "2025-03-14", "time": "10:00", "merchant": "Dr. Alejandro Garza — Consulta", "category": "Salud", "subcategory": "Consulta médica", "amount": -800.00, "type": "gasto", "channel": "TPV presencial", "friction": null },
+    { "txn_id": "txn_058", "account_id": "acc_bbva_001", "bank": "BBVA", "card_last4": "4821", "date": "2025-03-22", "time": "11:00", "merchant": "Sam's Club Monterrey", "category": "Supermercado", "subcategory": "Despensa mayoreo", "amount": -2100.00, "type": "gasto", "channel": "TPV presencial", "friction": null },
+    { "txn_id": "txn_059", "account_id": "acc_banorte_001", "bank": "Banorte", "card_last4": "9012", "date": "2025-03-23", "time": "16:00", "merchant": "Cinépolis Galerías", "category": "Entretenimiento", "subcategory": "Cine", "amount": -320.00, "type": "gasto", "channel": "TPV presencial", "friction": null },
+    { "txn_id": "txn_060", "account_id": "acc_bbva_001", "bank": "BBVA", "card_last4": "4821", "date": "2025-03-12", "time": "08:15", "merchant": "Uber — Traslado trabajo", "category": "Transporte", "subcategory": "Rideshare", "amount": -120.00, "type": "gasto", "channel": "App móvil", "friction": null },
+    { "txn_id": "txn_061", "account_id": "acc_banorte_001", "bank": "Banorte", "card_last4": "9012", "date": "2025-03-26", "time": "13:00", "merchant": "Soriana Hiper Cumbres", "category": "Supermercado", "subcategory": "Despensa", "amount": -780.00, "type": "gasto", "channel": "TPV presencial", "friction": null },
+    { "txn_id": "txn_062", "account_id": "acc_citi_001", "bank": "Citibanamex", "card_last4": "5503", "date": "2025-03-18", "time": "09:30", "merchant": "Clínica Dental Sonrisa", "category": "Salud", "subcategory": "Odontología", "amount": -1200.00, "type": "gasto", "channel": "TPV presencial", "friction": null },
+    { "txn_id": "txn_063", "account_id": "acc_banorte_001", "bank": "Banorte", "card_last4": "9012", "date": "2025-03-01", "time": "09:00", "merchant": "GNP Seguros — Auto", "category": "Seguros", "subcategory": "Seguro vehicular", "amount": -1800.00, "type": "gasto", "channel": "Cargo automático", "friction": null },
+    { "txn_id": "txn_064", "account_id": "acc_bbva_001", "bank": "BBVA", "card_last4": "4821", "date": "2025-03-19", "time": "14:00", "merchant": "Office Depot — Material", "category": "Trabajo", "subcategory": "Material de oficina", "amount": -450.00, "type": "gasto", "channel": "TPV presencial", "friction": null },
+    { "txn_id": "txn_065", "account_id": "acc_banorte_001", "bank": "Banorte", "card_last4": "9012", "date": "2025-03-21", "time": "13:30", "merchant": "PEMEX Gasolinería Valle", "category": "Transporte", "subcategory": "Gasolina", "amount": -680.00, "type": "gasto", "channel": "TPV presencial", "friction": null }
   ],
 
   "friction_summary": {
