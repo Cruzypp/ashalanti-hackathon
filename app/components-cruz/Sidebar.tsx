@@ -72,7 +72,7 @@ export default function Sidebar() {
           </div>
           <div className={`transition-opacity duration-200 ${showLabels ? "opacity-100" : "opacity-0"}`}>
             <p className="text-base font-bold text-primary leading-tight whitespace-nowrap">Ashalanti</p>
-            <p className="text-xs text-gray-400 whitespace-nowrap">Stay Smooth</p>
+            <p className="text-xs text-gray-400 whitespace-nowrap">Se conciente</p>
           </div>
         </div>
 
@@ -94,17 +94,8 @@ export default function Sidebar() {
 
         {/* Bottom */}
         <div className="flex flex-col gap-1">
-          <NavAction
-            href="/report"
-            label="Report Friction"
-            icon={AlertTriangle}
-            collapsed={collapsed}
-            showLabels={showLabels}
-            variant="action"
-            onCollapsedClick={() => expandAndNavigate("/report")}
-          />
-          <NavAction href="/settings" label="Settings" icon={Settings} collapsed={collapsed} showLabels={showLabels} onCollapsedClick={() => expandAndNavigate("/settings")} />
-          <NavAction href="/help"     label="Help"     icon={HelpCircle} collapsed={collapsed} showLabels={showLabels} onCollapsedClick={() => expandAndNavigate("/help")} />
+          <NavAction href="/settings" label="Ajustes" icon={Settings} collapsed={collapsed} showLabels={showLabels} onCollapsedClick={() => expandAndNavigate("/settings")} />
+          <NavAction href="/help"     label="Ayuda"     icon={HelpCircle} collapsed={collapsed} showLabels={showLabels} onCollapsedClick={() => expandAndNavigate("/help")} />
         </div>
       </div>
     </aside>
