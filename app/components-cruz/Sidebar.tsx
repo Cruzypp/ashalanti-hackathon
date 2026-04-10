@@ -52,7 +52,7 @@ export default function Sidebar() {
 
   return (
     <aside
-      className={`relative flex flex-col min-h-screen bg-gray-50 shrink-0 transition-all duration-300 ${
+      className={`sticky top-0 flex h-screen self-start flex-col overflow-hidden bg-gray-50 px-3 py-6 shrink-0 transition-all duration-300 ${
         collapsed ? "w-18" : "w-64"
       }`}
     >
