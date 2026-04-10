@@ -8,10 +8,10 @@ import {
   Utensils, Package, BookOpen, Heart, Cpu, Receipt,
 } from "lucide-react";
 import type { LucideIcon } from "lucide-react";
-import rawData from "@/app/data.json";
+import rawData from "@/app/data/user.json";
 import CardFilterDropdown from "./CardFilterDropdown";
 
-/* ── helpers ─────────────────────────────────────── */
+/* helpers */
 
 const BANK_MAP: Record<string, string> = {
   BBVA: "bbva",
@@ -54,7 +54,7 @@ function formatAmount(amount: number): string {
   return `$${Math.abs(amount).toLocaleString("en-US", { minimumFractionDigits: 2 })}`;
 }
 
-/* ── data ────────────────────────────────────────── */
+/* data */
 
 const accountMap = Object.fromEntries(
   rawData.accounts.map((a) => [a.account_id, a])
@@ -66,7 +66,7 @@ const gastos = rawData.transactions
   .filter((t) => t.type === "gasto")
   .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
 
-/* ── component ───────────────────────────────────── */
+/* component */
 
 export default function PurchaseHistory() {
   const allIds = new Set(allAccounts.map((a) => a.account_id));
@@ -195,7 +195,7 @@ export default function PurchaseHistory() {
 
       {/* Footer */}
       <div className="mt-4 pt-3 border-t border-gray-100 text-center">
-        <Link href="/compras" className="text-sm font-medium text-primary hover:underline">
+        <Link href="/transacciones" className="text-sm font-medium text-primary hover:underline">
           Ver historial completo
         </Link>
       </div>

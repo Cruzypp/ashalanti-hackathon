@@ -1,26 +1,5 @@
-import DashboardHeader from "./components-cruz/dashboard/DashboardHeader";
-import StatCard from "./components-cruz/dashboard/StatCard";
-import PurchaseHistory from "./components-cruz/dashboard/PurchaseHistory";
-import TopFricciones from "./components-cruz/dashboard/TopFricciones";
+import { redirect } from 'next/navigation'
 
-export default function DashboardPage() {
-  return (
-    <div className="min-h-screen bg-gray-100 p-8">
-      <DashboardHeader />
-
-      {/* Stats row */}
-      <div className="grid grid-cols-4 gap-4 mb-6">
-        <StatCard variant="frictions" value={4} />
-        <StatCard variant="loss" value="-$184.50" />
-        <StatCard variant="savings" value="+$240.00" />
-        <StatCard variant="health" value={75} />
-      </div>
-
-      {/* Main content */}
-      <div className="grid grid-cols-2 gap-6">
-        <PurchaseHistory />
-        <TopFricciones />
-      </div>
-    </div>
-  );
+export default function HomePage() {
+  redirect('/dashboard')
 }

@@ -7,6 +7,7 @@ import {
   AlertTriangle,
   ShoppingCart,
   BarChart2,
+  Wallet,
   Settings,
   HelpCircle,
   ChevronLeft,
@@ -16,10 +17,11 @@ import NavItem from "./NavItem";
 import NavAction from "./NavAction";
 
 const navItems = [
-  { label: "Dashboard",  href: "/",           icon: LayoutDashboard },
-  { label: "Fricciones", href: "/fricciones",  icon: AlertTriangle },
-  { label: "Compras",    href: "/compras",     icon: ShoppingCart },
-  { label: "Ejecutivo",  href: "/ejecutivo",   icon: BarChart2 },
+  { label: "Dashboard", href: "/dashboard", icon: LayoutDashboard },
+  { label: "Fricciones", href: "/fricciones", icon: AlertTriangle },
+  { label: "Transacciones", href: "/transacciones", icon: ShoppingCart },
+  { label: "Cuentas", href: "/cuentas", icon: Wallet },
+  { label: "Ejecutivos", href: "/ejecutivos", icon: BarChart2 },
 ];
 
 export default function Sidebar() {
@@ -54,7 +56,7 @@ export default function Sidebar() {
         collapsed ? "w-18" : "w-64"
       }`}
     >
-      {/* Toggle button — fuera del contenedor overflow-hidden para no recortarse */}
+      {/* Toggle button outside overflow-hidden container */}
       <button
         onClick={toggle}
         className="absolute -right-3 top-7 z-10 flex items-center justify-center w-6 h-6 rounded-full bg-white border border-gray-200 shadow-sm text-gray-400 hover:text-gray-600 transition-colors"
@@ -63,7 +65,7 @@ export default function Sidebar() {
         {collapsed ? <ChevronRight size={13} /> : <ChevronLeft size={13} />}
       </button>
 
-      {/* Contenedor interior con overflow-hidden para recortar textos durante la animación */}
+      {/* Inner container keeps label animation clipped */}
       <div className="flex flex-col flex-1 overflow-hidden px-3 py-6">
         {/* Logo */}
         <div className="flex items-center mb-8 px-1 gap-3">
