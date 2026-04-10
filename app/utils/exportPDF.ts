@@ -28,7 +28,7 @@ export async function exportPurchasesPDF(gastos: Transaction[], monthKey?: strin
   doc.setFontSize(16);
   doc.setFont("helvetica", "bold");
   const periodLabel = monthKey
-    ? new Date(monthKey + "-01").toLocaleDateString("es-MX", { month: "long", year: "numeric" })
+    ? (() => { const [y, m] = monthKey.split("-").map(Number); return new Date(y, m - 1, 1).toLocaleDateString("es-MX", { month: "long", year: "numeric" }); })()
     : "Todos los meses";
   doc.text(`Historial de Compras — ${periodLabel}`, 14, 13);
   doc.setFontSize(9);
