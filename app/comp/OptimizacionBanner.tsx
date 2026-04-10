@@ -4,12 +4,11 @@ interface Props {
   recoveredAmount: number
   recoveryPercent: number
   progressPercent: number
-  onGenerateReport?: () => void
 }
 
 const SPARK_HEIGHTS = [28, 45, 35, 60, 50, 80, 100]
 
-export function OptimizacionBanner({ recoveredAmount, recoveryPercent, progressPercent, onGenerateReport }: Props) {
+export function OptimizacionBanner({ recoveredAmount, recoveryPercent, progressPercent }: Props) {
   const formatted = new Intl.NumberFormat('es-MX', { style: 'currency', currency: 'USD' }).format(recoveredAmount)
   const progress = Math.min(100, Math.max(0, progressPercent))
 
@@ -21,7 +20,6 @@ export function OptimizacionBanner({ recoveredAmount, recoveryPercent, progressP
           Has recuperado un total de <span className="font-semibold text-sky-900">{formatted}</span> este mes resolviendo fricciones. ¡Sigue así!
         </p>
         <button
-          onClick={onGenerateReport}
           className="bg-sky-900 text-sky-100 text-sm font-semibold px-5 py-2.5 rounded-full hover:bg-sky-800 transition-colors"
         >
           Generar Reporte Mensual

@@ -9,6 +9,7 @@ export interface FrictionCardProps {
   amount: number
   title: string
   description: string
+  meta?: string[]
   detectedAt: string
   onViewDetail?: () => void
 }
@@ -19,7 +20,7 @@ const config: Record<Severity, { label: string; badge: string; amount: string; b
   attention: { label: 'ATTENTION', badge: 'bg-blue-100 text-blue-800',     amount: 'text-blue-700',   border: 'border-l-blue-500'   },
 }
 
-export function FrictionCard({ severity, amount, title, description, detectedAt, onViewDetail }: FrictionCardProps) {
+export function FrictionCard({ severity, amount, title, description, meta, detectedAt, onViewDetail }: FrictionCardProps) {
   const c = config[severity]
   const formatted = new Intl.NumberFormat('es-MX', { style: 'currency', currency: 'USD', signDisplay: 'always' }).format(-Math.abs(amount))
 
@@ -31,6 +32,15 @@ export function FrictionCard({ severity, amount, title, description, detectedAt,
       </div>
       <h3 className="text-sm font-semibold text-gray-900 mb-1">{title}</h3>
       <p className="text-xs text-gray-400 truncate mb-3.5">{description}</p>
+      {meta?.length ? (
+        <div className="flex flex-wrap gap-2 mb-3.5">
+          {meta.map((item) => (
+            <span key={item} className="text-[10px] font-medium px-2 py-1 rounded-full bg-gray-100 text-gray-600">
+              {item}
+            </span>
+          ))}
+        </div>
+      ) : null}
       <div className="flex items-center justify-between">
         <span className="flex items-center gap-1.5 text-xs text-gray-400">
           <CalendarDays size={12} />

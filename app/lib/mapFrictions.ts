@@ -11,13 +11,15 @@ export function mapFrictions(data: typeof import('../data/user.json')): Friction
   const { historical_comparison } = data
 
   return frictions.map((f): Friction => {
+    const monthlyImpact = f.monthly_impact ?? 0
+
     switch (f.type) {
       case 'compra_impulsiva':
         return {
           type: f.type,
           label: f.label,
           severity: severityMap[f.severity],
-          monthlyImpact: f.monthly_impact,
+          monthlyImpact,
           count: f.count,
           description: `Amazon, Mercado Libre, Shein, Steam, Liverpool…`,
           meta: [`${f.count} eventos`, `+${historical_comparison.ecommerce.pct_change_vs_q_prev} vs trimestre`],
@@ -28,7 +30,7 @@ export function mapFrictions(data: typeof import('../data/user.json')): Friction
           type: f.type,
           label: f.label,
           severity: severityMap[f.severity],
-          monthlyImpact: f.monthly_impact,
+          monthlyImpact,
           count: f.count,
           description: (f.services ?? []).join(', ') + '…',
           meta: [`${f.count} servicios`, `+${historical_comparison.subscriptions.pct_change_vs_q_prev} vs trimestre`],
@@ -49,7 +51,7 @@ export function mapFrictions(data: typeof import('../data/user.json')): Friction
           type: f.type,
           label: f.label,
           severity: severityMap[f.severity],
-          monthlyImpact: f.monthly_impact,
+          monthlyImpact,
           count: f.count,
           description: f.detail ?? '',
           meta: [`${f.count} eventos`, `+${historical_comparison.atm_fees.pct_change_vs_q_prev} vs trimestre`],
@@ -60,7 +62,7 @@ export function mapFrictions(data: typeof import('../data/user.json')): Friction
           type: f.type,
           label: f.label,
           severity: severityMap[f.severity],
-          monthlyImpact: f.monthly_impact,
+          monthlyImpact,
           count: f.count,
           description: (f.services ?? []).join(' y ') + ' activos junto con Netflix…',
           meta: [`${f.count} servicios`, 'Triple streaming'],
@@ -71,7 +73,7 @@ export function mapFrictions(data: typeof import('../data/user.json')): Friction
           type: f.type,
           label: f.label,
           severity: severityMap[f.severity],
-          monthlyImpact: f.monthly_impact,
+          monthlyImpact,
           description: 'La Única, VIPS, Don Sirloin, Sushi Roll…',
           meta: [`${f.vs_last_quarter} vs trimestre`],
           detectedAt: 'Detectado este mes',
@@ -81,7 +83,7 @@ export function mapFrictions(data: typeof import('../data/user.json')): Friction
           type: f.type,
           label: f.label,
           severity: severityMap[f.severity],
-          monthlyImpact: f.monthly_impact,
+          monthlyImpact,
           count: f.count,
           description: 'Oxxo diario + Starbucks 3x semana en Garza Sada…',
           meta: [`${f.count} eventos`],
@@ -92,7 +94,7 @@ export function mapFrictions(data: typeof import('../data/user.json')): Friction
           type: f.type,
           label: f.label,
           severity: severityMap[f.severity],
-          monthlyImpact: f.monthly_impact,
+          monthlyImpact,
           count: f.count,
           description: 'Compras 1am–4am en establecimientos sin nombre…',
           meta: [`${f.count} eventos`],
