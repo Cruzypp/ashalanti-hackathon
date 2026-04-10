@@ -33,7 +33,6 @@ export default function FriccionPage() {
             title={f.label}
             description={f.description}
             meta={f.meta}
-            detectedAt={f.detectedAt}
             detailHref={`/fricciones/${f.type}`}
           />
         ))}
