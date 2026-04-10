@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import { usePathname, useRouter } from "next/navigation";
 import { useState } from "react";
 import {
@@ -67,8 +68,14 @@ export default function Sidebar() {
       <div className="flex flex-col flex-1 overflow-hidden px-3 py-6">
         {/* Logo */}
         <div className="flex items-center mb-8 px-1 gap-3">
-          <div className="flex items-center justify-center w-11 h-11 rounded-xl bg-primary/10 shrink-0">
-            <LayoutDashboard size={22} className="text-primary" />
+          <div className="flex items-center justify-center w-11 h-11 rounded-xl bg-primary/10 shrink-0 overflow-hidden">
+            <Image
+              src="/cerezita.png"
+              alt="Ashalanti"
+              width={44}
+              height={44}
+              className="w-full h-full object-contain"
+            />
           </div>
           <div className={`transition-opacity duration-200 ${showLabels ? "opacity-100" : "opacity-0"}`}>
             <p className="text-base font-bold text-primary leading-tight whitespace-nowrap">Ashalanti</p>
