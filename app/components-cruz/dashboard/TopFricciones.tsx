@@ -32,7 +32,7 @@ const iconByType: Record<string, LucideIcon> = {
 
 const currency = new Intl.NumberFormat("es-MX", {
   style: "currency",
-  currency: "USD",
+  currency: "MXN",
   signDisplay: "always",
 });
 

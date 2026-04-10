@@ -1,6 +1,4 @@
-'use client'
-
-import { CalendarDays } from 'lucide-react'
+import Link from 'next/link'
 
 export type Severity = 'critical' | 'medium' | 'attention'
 
@@ -10,8 +8,7 @@ export interface FrictionCardProps {
   title: string
   description: string
   meta?: string[]
-  detectedAt: string
-  onViewDetail?: () => void
+  detailHref: string
 }
 
 const config: Record<Severity, { label: string; badge: string; amount: string; border: string }> = {
@@ -20,9 +17,9 @@ const config: Record<Severity, { label: string; badge: string; amount: string; b
   attention: { label: 'ATTENTION', badge: 'bg-blue-100 text-blue-800',     amount: 'text-blue-700',   border: 'border-l-blue-500'   },
 }
 
-export function FrictionCard({ severity, amount, title, description, meta, detectedAt, onViewDetail }: FrictionCardProps) {
+export function FrictionCard({ severity, amount, title, description, meta, detailHref }: FrictionCardProps) {
   const c = config[severity]
-  const formatted = new Intl.NumberFormat('es-MX', { style: 'currency', currency: 'USD', signDisplay: 'always' }).format(-Math.abs(amount))
+  const formatted = new Intl.NumberFormat('es-MX', { style: 'currency', currency: 'MXN', signDisplay: 'always' }).format(-Math.abs(amount))
 
   return (
     <div className={`bg-white rounded-2xl p-5 border border-gray-100 border-l-4 ${c.border}`}>
@@ -41,17 +38,13 @@ export function FrictionCard({ severity, amount, title, description, meta, detec
           ))}
         </div>
       ) : null}
-      <div className="flex items-center justify-between">
-        <span className="flex items-center gap-1.5 text-xs text-gray-400">
-          <CalendarDays size={12} />
-          {detectedAt}
-        </span>
-        <button
-          onClick={onViewDetail}
+      <div className="flex items-center justify-end">
+        <Link
+          href={detailHref}
           className="text-xs px-4 py-1.5 rounded-full border border-gray-200 bg-gray-50 text-gray-600 hover:bg-gray-100 transition-colors"
         >
           Ver Detalle
-        </button>
+        </Link>
       </div>
     </div>
   )
