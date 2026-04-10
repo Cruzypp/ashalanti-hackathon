@@ -1,6 +1,7 @@
 import DashboardHeader from '../components-cruz/dashboard/DashboardHeader'
 import StatCard from '../components-cruz/dashboard/StatCard'
 import PurchaseHistory from '../components-cruz/dashboard/PurchaseHistory'
+import type { Account, Transaction } from '../components-cruz/dashboard/PurchaseHistory'
 import TopFricciones from '../components-cruz/dashboard/TopFricciones'
 import userData from '../data/user.json'
 
@@ -25,7 +26,10 @@ export default function DashboardPage() {
       </div>
 
       <div className="grid grid-cols-1 xl:grid-cols-2 gap-6">
-        <PurchaseHistory />
+        <PurchaseHistory
+          accounts={userData.accounts as Account[]}
+          transactions={userData.transactions as Transaction[]}
+        />
         <TopFricciones />
       </div>
     </div>
